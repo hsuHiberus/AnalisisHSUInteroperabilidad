@@ -12,7 +12,7 @@ public class Cargador {
 	public static String MOD = "TRANSVERSAL";
 	
 	public static List<Aplicacion> cargarAplicaciones(){
-		List<Aplicacion> aplicaciones = new ArrayList();
+		List<Aplicacion> aplicaciones = new ArrayList<>();
 		
 		aplicaciones.add(new Aplicacion("RMIN",APP1));
 		aplicaciones.add(new Aplicacion("SIDM",APP1));

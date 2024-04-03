@@ -9,33 +9,33 @@ public class Aplicacion {
 	int eventos;
 	List<Evento> apariciones;
 
-	
-	
 	public Aplicacion(String poaps, String tipo) {
-		this.poaps=poaps;
-		this.tipo=tipo;
+		this.poaps = poaps;
+		this.tipo = tipo;
 		this.eventos = 0;
-		apariciones=new ArrayList<Evento>();
+		apariciones = new ArrayList<Evento>();
 	}
 	
 	public String getPoaps() {
 		return poaps;
 	}
+
 	public void setPoaps(String poaps) {
 		this.poaps = poaps;
 	}
+
 	public String getTipo() {
 		return tipo;
 	}
+
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 	
 	public void addEventos(){
-		this.eventos=this.eventos+1;
+		this.eventos = this.eventos + 1;
 	}
 
-	
 	public List<Evento> getApariciones() {
 		return apariciones;
 	}
@@ -48,7 +48,7 @@ public class Aplicacion {
 		if(this.poaps.equals(analisis)){
 			return "";
 		}else{
-			String retorno = "\n\nAPP >> APLICACION: "+this.poaps+" - APARICIONES ENCONTRADOS:"+this.eventos+"\n";
+			String retorno = "\n\nAPP >> APLICACION: " + this.poaps + " - APARICIONES ENCONTRADOS: " + this.eventos + "\n";
 			String fichero = "";
 			for(Evento aparicion: this.apariciones){
 				if(!aparicion.getFichero().equals(fichero)){
@@ -69,11 +69,10 @@ public class Aplicacion {
 					}
 				}
 				if(candidata){
-					retorno += "\n\t\t # LINEA ("+aparicion.getLinea()+") >> "+aparicion.getContenido();
+					retorno += "\n\t\t # LINEA (" + aparicion.getLinea() + ") >> " + aparicion.getContenido();
 				}else{
-					retorno += "\n\t\t - LINEA ("+aparicion.getLinea()+") >> "+aparicion.getContenido();
+					retorno += "\n\t\t - LINEA (" + aparicion.getLinea() + ") >> " + aparicion.getContenido();
 				}
-				
 			}
 			return retorno;
 		}
@@ -83,9 +82,8 @@ public class Aplicacion {
 		if(this.poaps.equals(analisis)){
 			return "";
 		}else{
-			return "\n+ APLICACION: "+this.poaps+" -  TIPO:"+this.tipo+" - APARICIONES ENCONTRADOS:"+this.eventos+"";
+			return "\n+ APLICACION: " + this.poaps + " -  TIPO: " + this.tipo + " - APARICIONES ENCONTRADOS: " + this.eventos;
 		}
 	}
-	
 
 }
