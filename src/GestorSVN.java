@@ -60,11 +60,12 @@ public class GestorSVN {
     }
   }
 
+  @SuppressWarnings("unchecked")
   public List<String> listarDirectorios() {
     List<String> aplicaciones = new ArrayList<>();
     try {
       if (repository != null) {
-        Collection<SVNDirEntry> entries = repository.getDir("", -1, null, (Collection) null);
+        Collection<SVNDirEntry> entries = repository.getDir("", -1, null, (Collection<SVNDirEntry>) null);
         for (SVNDirEntry entry : entries) {
           if (entry.getKind() == SVNNodeKind.DIR) {
             aplicaciones.add(entry.getName());
@@ -91,8 +92,9 @@ public class GestorSVN {
     }, executor);
   }
 
+  @SuppressWarnings("unchecked")
   private void listarDirectoriosRecursivamente(String path, Map<String, byte[]> archivos, List<String> seleccion, boolean explorarSubdirectorios) throws SVNException {
-    Collection<SVNDirEntry> entries = repository.getDir(path, -1, null, (Collection) null);
+    Collection<SVNDirEntry> entries = repository.getDir(path, -1, null, (Collection<SVNDirEntry>) null);
     List<CompletableFuture<Void>> futures = new ArrayList<>();
 
     for (SVNDirEntry entry : entries) {
@@ -114,7 +116,6 @@ public class GestorSVN {
         }, executor);
         futures.add(future);
       } else if (entry.getKind() != SVNNodeKind.DIR && esDirectorioSeleccionado) {
-        //System.out.print(entry.getName() + "  ");
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
           try {
             synchronized (archivos) {

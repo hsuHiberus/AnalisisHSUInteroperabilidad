@@ -45,7 +45,7 @@ public class Principal {
 	
 	public static void main(String[] args){
 		//try{
-			String analisis = Principal.configurar();
+			//String analisis = Principal.configurar();
 			List<Aplicacion> aplicaciones = Cargador.cargarAplicaciones();
 			
 			String app = seleccionarAplicacion(aplicaciones);
@@ -66,7 +66,7 @@ public class Principal {
 
 				System.out.println("\nRecuperación de archivos completada.");
 				System.out.println("Número de ficheros: " + listaArchivos.size());
-    		System.out.printf("Tiempo empleado: " + tiempoEmpleado);
+    		System.out.printf("Tiempo empleado: " + tiempoEmpleado + "\n");
 
 				GestorSVN.getInstancia().shutdownExecutor();
 			} catch (Exception e) {
