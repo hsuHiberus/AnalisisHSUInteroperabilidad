@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Aplicacion {
 	
 	String poaps;
@@ -9,8 +8,6 @@ public class Aplicacion {
 	int eventos;
 	List<Evento> apariciones;
 
-	
-	
 	public Aplicacion(String poaps, String tipo) {
 		this.poaps=poaps;
 		this.tipo=tipo;
@@ -21,12 +18,15 @@ public class Aplicacion {
 	public String getPoaps() {
 		return poaps;
 	}
+
 	public void setPoaps(String poaps) {
 		this.poaps = poaps;
 	}
+
 	public String getTipo() {
 		return tipo;
 	}
+
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
@@ -34,7 +34,6 @@ public class Aplicacion {
 	public void addEventos(){
 		this.eventos=this.eventos+1;
 	}
-
 	
 	public List<Evento> getApariciones() {
 		return apariciones;
@@ -86,6 +85,5 @@ public class Aplicacion {
 			return "\n+ APLICACION: "+this.poaps+" -  TIPO:"+this.tipo+" - APARICIONES ENCONTRADOS:"+this.eventos+"";
 		}
 	}
-	
 
 }

@@ -11,30 +11,28 @@ public class Evento {
 		this.contenido 	= contenido;
 	}
 	
-	
 	public String getFichero() {
 		return fichero;
 	}
+
 	public void setFichero(String fichero) {
 		this.fichero = fichero;
 	}
+
 	public int getLinea() {
 		return linea;
 	}
+
 	public void setLinea(int linea) {
 		this.linea = linea;
 	}
-
 
 	public String getContenido() {
 		return contenido;
 	}
 
-
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
 	}
 	
-	
-
 }
