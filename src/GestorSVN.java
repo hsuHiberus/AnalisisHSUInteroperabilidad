@@ -25,7 +25,12 @@ public class GestorSVN {
   private static GestorSVN instancia = null;
   private SVNRepository repository = null;
   private ExecutorService executor = Executors.newCachedThreadPool();
-  private static final List<String> extensionesExcluidas = Arrays.asList(".gif", ".png", ".jpg", ".jpeg", ".mp4", ".avi", ".mov", ".doc", ".pdf");
+  private static final List<String> extensionesExcluidas = Arrays.asList(
+      ".gif", ".png", ".jpg", ".jpeg", ".mp4", ".avi", ".mov", ".bmp", ".tiff", ".ico",
+      ".wav", ".mp3", ".aac", ".ogg", ".flac", ".mkv", ".flv", ".webm", ".mpeg", ".wmv",
+      ".doc", ".docx", ".ppt", ".pptx", ".xls", ".xlsx", ".odt", ".ods", ".odp", ".pdf",
+      ".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz"
+  );
   private AtomicInteger contadorArchivos = new AtomicInteger(0);
   private final int archivosPorPunto = 50;
 

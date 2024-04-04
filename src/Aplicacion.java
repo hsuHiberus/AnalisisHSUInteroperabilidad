@@ -36,6 +36,10 @@ public class Aplicacion {
 		this.eventos = this.eventos + 1;
 	}
 
+	public int getEventos(){
+		return this.eventos;
+	}
+
 	public List<Evento> getApariciones() {
 		return apariciones;
 	}

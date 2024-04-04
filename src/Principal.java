@@ -62,116 +62,17 @@ public class Principal {
 				Map<String, byte[]> listaArchivos = futureArchivos.get();
 				long fin = System.nanoTime();
 
-				String tiempoEmpleado = getTiempoEmpleado(inicio, fin);
-
 				System.out.println("\nRecuperación de archivos completada.");
 				System.out.println("Número de ficheros: " + listaArchivos.size());
-    		System.out.printf("Tiempo empleado: " + tiempoEmpleado + "\n");
+    		System.out.println("Tiempo empleado: " + getTiempoEmpleado(inicio, fin) + "\n");
+				System.out.println("Tamaño total: " + calcularTamanoTotal(listaArchivos) + "\n");
 
 				GestorSVN.getInstancia().shutdownExecutor();
+
+				Lector.procesarArchivos(listaArchivos, aplicaciones, "Analisis.txt", app);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-			/* File directorio = new File("HSU");
-			File subdirectorios[]= directorio.listFiles();
-			List<File> formularios= new ArrayList<File>();
-			List<File> reports= new ArrayList<File>();
-
-			for(File subdir : subdirectorios){
-				if(subdir.isDirectory()){
-					for(File archivo : subdir.listFiles()){
-						if(archivo.getName().endsWith(".fmb")){
-							formularios.add(archivo);
-						}
-						if(archivo.getName().endsWith(".rdf")){
-							reports.add(archivo);
-						}
-					}
-				}
-			}
-			
-			int totalFormularios= formularios.size();
-			int totalReports = reports.size();
-			int indice = 0;
-			int indice2 = 0;
-			
-			for(File f : formularios){
-				indice++;
-				BufferedReader entrada= new BufferedReader(new InputStreamReader(new FileInputStream(f)));
-				int i=0;
-				while(entrada.ready()){
-					i++;
-					String linea=entrada.readLine();
-				
-					for(Aplicacion aplicacion : aplicaciones){
-						if(analisis!=null && aplicacion.getPoaps().equals(analisis)){
-							break;
-						}
-						if(linea.contains(aplicacion.getPoaps()+"_")){
-							aplicacion.addEventos();
-							aplicacion.addApariciones(new Evento(f.getName(),i,linea)); 
-						}
-					}						
-				}
-				entrada.close();
-				out(totalFormularios,indice,totalReports, indice2,analisis);
-			}
-			
-			for(File f : reports){
-				indice2++;
-				BufferedReader entrada= new BufferedReader(new InputStreamReader(new FileInputStream(f)));
-				int i=0;
-				while(entrada.ready()){
-					i++;
-					String linea=entrada.readLine();
-				
-					for(Aplicacion aplicacion : aplicaciones){
-						if(linea.contains(aplicacion.getPoaps()+"_")){
-							aplicacion.addEventos();
-							aplicacion.addApariciones(new Evento(f.getName(),i,linea)); 
-						}
-					}
-				}
-				out(totalFormularios,indice,totalReports, indice2,analisis);
-				entrada.close();				
-			}
-			
-			System.out.println("VOLCANDO DATOS....");
-			FileWriter entrada= new FileWriter("Analisis.txt");
-			entrada.write("\n----APLICACIONES DETECTADAS --------------------- \n");
-			for(Aplicacion aplicacion : aplicaciones){
-				if(aplicacion.eventos>0){
-					entrada.write(aplicacion.resumen(analisis));
-				}
-			}
-			System.out.println("VOLCANDO APARICIONES....");
-			entrada.write("\n\n----APARICIONES --------------------- \n");
-			for(Aplicacion aplicacion : aplicaciones){
-				if(aplicacion.eventos>0){
-					entrada.write(aplicacion.apariciones(analisis));
-				}
-			}
-			System.out.println("FINALIZADO");
-			System.out.println("FORMULARIOS ANALIZADOS: " + totalFormularios);
-			System.out.println("INFORMES ANALIZADOS: " + totalReports);
-			entrada.close();
-			 
-		}catch(FileNotFoundException e){
-			System.out.println(e.getMessage());
-		}catch(IOException e){
-			System.out.println(e.getMessage());
-		}catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		*/
-	}
-	
-	public static void out(int totalFormularios, int indiceFormularios,int totalReports, int indiceReports,String aplicacion) throws InterruptedException, IOException{		
-		System.out.println("ANALIZANDO HSU...[" + aplicacion + "]");
-		System.out.println("- Formularios: " + indiceFormularios + " de " + totalFormularios);
-		System.out.println("- Informes   : " + indiceReports + " de " + totalReports);
-		
 	}
 
 	private static String seleccionarAplicacion(List<Aplicacion> aplicaciones) {
@@ -205,7 +106,7 @@ public class Principal {
 					app = aplicaciones.get(seleccion).getPoaps().toLowerCase();
 					break;
 				} else {
-					System.out.println("\nSelección inválida. Por favor, intente de nuevo.\n");
+					System.out.println("\nSelección inválida. Por favor, intentelo de nuevo.\n");
 				}
 			}
     } catch (Exception e) {
@@ -274,5 +175,25 @@ public class Principal {
 			return String.format("%d minutos y %d segundos", minutos, segundos);
     }
 	}
+
+	public static String calcularTamanoTotal(Map<String, byte[]> listaArchivos) {
+    long totalBytes = 0;
+
+    for (byte[] contenido : listaArchivos.values()) {
+        if (contenido != null) {
+            totalBytes += contenido.length;
+        }
+    }
+
+    if (totalBytes < 1024) {
+        return totalBytes + " bytes";
+    } else if (totalBytes < 1024 * 1024) {
+        return String.format("%.2f KB", totalBytes / 1024.0);
+    } else if (totalBytes < 1024 * 1024 * 1024) {
+        return String.format("%.2f MB", totalBytes / (1024.0 * 1024));
+    } else {
+        return String.format("%.2f GB", totalBytes / (1024.0 * 1024 * 1024));
+    }
+}
 
 }
